@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>My Portfolio</title>
+        <meta charset="utf-8">
+        <link rel="icon" type="image/png" href="resource/cat-favicon.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <i>if you have the time, please fill out the following survey</i> <br> <br>
+        <label for="channels">how did you know about this website</label>
+        <select name="channels" id="channels">
+            <optgroup label="no way">
+                <option value="friend">friend</option>
+                <option value="google">google</option>
+            </optgroup>
+            <optgroup label="that's more likely">
+                <option value="CSE134B">CSE134B</option>
+                <option value="Professor Powell">Professor Powell</option>
+            </optgroup>
+            <optgroup label="no?">
+                <option value="other">other</option>
+            </optgroup>
+        </select>
+        <button>submit</button>
+        <form>
+            <fieldset>
+                <legend>personalia</legend>
+                <label for="nationality">which country do you live in:</label>
+                <input type="text" name="nationality" id="nationality"> <br>
+                <label for="other channels">the channel from which you heard about this website:</label>
+                <input type="text" name="other channels" id="other channels"> <br>
+                <label for="browser">Choose your browser:</label>
+                <input list="browsers" name="browser" id="browser">
+                <datalist id="browsers">
+                    <option value="Edge">
+                    <option value="Firefox">
+                    <option value="Chrome">
+                    <option value="Safari">
+                </datalist> <br>
+                <label for="comments" name="comments" id="comments">share comments if you have any:</label> <br>
+                <textarea name="comments" id="comments">any comments?</textarea> <br>
+                <input type="submit" value="submit">
+            </fieldset>
+        </form>
+    </body>
+</html>

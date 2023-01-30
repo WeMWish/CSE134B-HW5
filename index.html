@@ -7,6 +7,39 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <canvas id="canvas"></canvas>
+        <!-- 14 lines script -->
+        <script>
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.beginPath();
+            ctx.arc(100, 100, 75, 0, 2 * Math.PI);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(75, 75, 10, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(125, 75, 10, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(100, 100, 50, 0, Math.PI, false);
+            ctx.stroke();
+        </script>
+
+        <h3>wanna to listen to my favourite song when viewing my page?</h3>
+        <audio controls>
+            <source src="resource/beautiful.mp3" type="audio/mpeg">
+            Your browswer does not support the audio element.
+        </audio>
+        <br>
+        <details>
+            <summary>or perhaps you'd like to watch the song's mv?</summary>
+            <video controls>
+                <source src="resource/beautiful-mv.mp4">
+                Your browswer does not support the video element.
+            </video>
+        </details>
+
         <main>
             <h1>Jieyuan Liu's Portfolio</h1>
             <h2>4th year UCSD undergraduate</h2>
@@ -34,9 +67,105 @@
                         <h3>Education</h3>
                         <p>University of California, San Diego <br>
                             Bachelor of Science in Computer Science <br>
-                            Expected graduation: <span style="border: 1px solid red;">June 2023</span> <br>
+                            Expected graduation: <span style="border: 1px solid red;">June 2023</span> <br> <!-- css 1 -->
                             GPA: <b>3.7/4.0</b>
                         </p>
+                        <h3>Experience (listed in time order)</h3>
+                        <ol>
+                            <li>
+                                <details>
+                                    <summary>
+                                        Meituan, Guangzhou, China <br>
+                                        Software Engineer Intern <br>
+                                        <em>June 2022 - Sep 2022</em>
+                                    </summary>
+                                    <ul>
+                                        <li>
+                                            Fixed DianPing and Meituan apps's layout issues like hiding the navigation bar
+                                             when scrolling and fixed the feed cards' 
+                                             round corners, optimizing user interaction with TypeScript.
+                                        </li>
+                                        <li>
+                                            Built a message reviewing platform for the DianPing app, allowing the staff
+                                             member to examine and block 
+                                             inappropriate messages more conveniently with HTML, CSS, and JavaScript, improving average daily message
+                                             consumption by 7%
+                                        </li>
+                                    </ul>
+                                </details>
+                            </li>
+                            <br>
+                            <li>
+                                <details>
+                                    <summary>
+                                        Kingdee, Guangzhou, China <br>
+                                        Software Engineer Intern <br>
+                                        <em>June 2021 - Sep 2021</em>
+                                    </summary>
+                                    <ul>
+                                        <li>
+                                            Built a user-verification layer in a microservice using Java and SQL, 
+                                            decreasing fault login by 14%.
+                                        </li>
+                                        <li>
+                                            Designed and Implemented authentication APIs that handle HTTP verification 
+                                            requests with Spring.
+                                        </li>
+                                        <li>
+                                            Incorporated the authentication APIs into the existing version of the application
+                                             using JDBC template, MyBatis and MySQL, allowing some of the microservices such
+                                              as the developers platform to build on top of these APIs.
+                                        </li>
+                                    </ul>
+                                </details>
+                            </li>
+                        </ol> 
+                        <h3>skills set (self rank my skill in 1-3 stars)</h3>
+                        <table>
+                            <caption>programming skills</caption>
+                            <colgroup>
+                                <col span="1" style="background-color: yellow;"> <!-- css 2 -->
+                            </colgroup>
+                            <tr>
+                                <th>skills</th>
+                                <th>level</th>
+                            </tr>
+                            <tr>
+                                <td>Java</td>
+                                <td>★★★</td>
+                            </tr>
+                            <tr>
+                                <td>Python</td>
+                                <td>★★</td>
+                            </tr>
+                            <tr>
+                                <td>C++</td>
+                                <td>★★</td>
+                            </tr>
+                            <tr>
+                                <td>HTML&CSS</td>
+                                <td>★★★</td>
+                            </tr>
+                            <tr>
+                                <td>JavaScript</td>
+                                <td>★★</td>
+                            </tr>
+                            <tr>
+                                <td>Objective-C</td>
+                                <td>★</td>
+                            </tr>
+                            <tr>
+                                <td>SQL</td>
+                                <td>★★★</td>
+                            </tr>
+                        </table>
+                        <h3>languages</h3>
+                        <ul>
+                            <li>English</li>
+                            <li>Mandarin</li>
+                            <li>Cantonese</li>
+                            <li>Japanese</li>
+                        </ul>
                     </div>
                     <footer>
                         <p>Click <a href="resource/resume.pdf">here</a> to view a pdf version of my resume</p>
@@ -49,11 +178,36 @@
                     UC San Diego is a highly ranked public research university located in La Jolla, California. <br>
                     It is consistently ranked among the <em>top 10</em> public universities in the United States
                 </p>
+                <details>
+                    <summary>doesn't seem familiar with UCSD?</summary>
+                    <figure>
+                        <img src="resource/ucsd.jpeg" alt="ucsd">
+                        <figcaption>UCSD</figcaption>
+                    </figure>
+                    <a href="https://ucsd.edu/">visit the univerity's official website!</a>
+                </details>
             </aside>
         </main>
+
+        <hr>
         <nav>
             <a href="resource/resume.pdf">My resume</a> <br>
             <a href="https://www.linkedin.com/in/jieyuan-liu/">My linkedin</a> <br>
+            <a href="src/navigation.html">go back to navigation page</a> <br>
+            <iframe src="src/navigation.html">navigation page</iframe>
         </nav>
+        
+        <br>
+        <template id="smile-face-svg">
+            <svg>
+                <circle cx="50" cy="50" r="40" fill="white"/>
+                <circle cx="30" cy="30" r="7" fill="black"/>
+                <circle cx="70" cy="30" r="7" fill="black"/>
+                <path d="M 30 60 Q 50 80 70 60" stroke="black" stroke-width="2" fill="none"/>
+            </svg>
+        </template>
+        <button onclick="this.innerHTML=document.querySelector('template#smile-face-svg').innerHTML">
+            Bye. hope you enjoy my portfolio!
+        </button>
     </body>
 </html>

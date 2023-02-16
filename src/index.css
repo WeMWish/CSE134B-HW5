@@ -1,0 +1,46 @@
+:root {
+    --hightlight-color: #ff0000;
+    --additional-info-color: #0000ff;
+    --decoration-color: #8AAAE5;
+}
+
+@font-face {
+    font-family: 'Amelaryas';
+    src: url('../resource/AmelaryasPersonalUse-6Ypw1.ttf') format('ttf');
+}
+
+body {
+    background-color: white;
+    font-family: 'Amelaryas';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+}
+
+article {
+    font-size: 1.25rem;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}  
+
+canvas {
+    animation: rotate 10s linear infinite;
+}
+
+#show-smile-face-button {
+    transition: background-color 0.5s ease;
+  }
+
+#show-smile-face-button:hover {
+    background-color: var(--decoration-color);
+    transform: scale(1.3, 1);
+}

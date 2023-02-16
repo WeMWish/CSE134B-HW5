@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <link rel="icon" type="image/png" href="resource/cat-favicon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="src/index.css">
         <style>
             #highlight-date {
                 border: 1px solid red;
@@ -211,7 +212,7 @@
                 <path d="M 30 60 Q 50 80 70 60" stroke="black" stroke-width="2" fill="none"/>
             </svg>
         </template>
-        <button onclick="this.innerHTML=document.querySelector('template#smile-face-svg').innerHTML">
+        <button id="show-smile-face-button" onclick="this.innerHTML=document.querySelector('template#smile-face-svg').innerHTML">
             Bye. hope you enjoy my portfolio!
         </button>
     </body>

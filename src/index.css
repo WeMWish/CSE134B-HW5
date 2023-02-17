@@ -90,7 +90,7 @@ canvas {
 /* break points for desktop */
 @media screen and (min-width: 1024px) {
     body {
-        font-size: 18px;
+        font-size: 1vw;
         width: 80%;
         margin: 0 auto;
     }

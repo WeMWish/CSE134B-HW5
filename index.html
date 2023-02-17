@@ -19,16 +19,16 @@
             const canvas = document.getElementById('canvas');
             const ctx = canvas.getContext('2d');
             ctx.beginPath();
-            ctx.arc(100, 100, 75, 0, 2 * Math.PI);
+            ctx.arc(100, 100, 50, -2 * Math.PI, 2 * Math.PI);
             ctx.stroke();
             ctx.beginPath();
-            ctx.arc(75, 75, 10, 0, 2 * Math.PI);
+            ctx.arc(75, 75, 5, 0, 2 * Math.PI);
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(125, 75, 10, 0, 2 * Math.PI);
+            ctx.arc(125, 75, 5, 0, 2 * Math.PI);
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(100, 100, 50, 0, Math.PI, false);
+            ctx.arc(100, 100, 25, 0, Math.PI, false);
             ctx.stroke();
         </script>
 
@@ -49,13 +49,14 @@
         <main>
             <h1>Jieyuan Liu's Portfolio</h1>
             <h2>4th year UCSD undergraduate</h2>
-            <pre>skill set: <code>Java, python, C++, HTML&CSS, JavaScript, Objective-C, SQL, web development, mobile development</code></pre>
+            <p>skill set: <code>Java, python, C++, HTML&CSS, JavaScript, Objective-C, SQL, web development, mobile development</code></p>
 
-            <i>Hi, I am Jieyuan Liu, a CS undergraduate student looking for internship / fulltime software engineering jobs. <br>
+            <div id="self-intro">
+                <i>Hi, I am Jieyuan Liu, a CS undergraduate student looking for internship and fulltime software engineering jobs. <br>
                 I am trained to use various programming languages and development skills. <br>
                 I have working experience with website&mobile app development. If you are interested, scroll down to view more about my resume!
-            </i>
-            <br>
+                </i>
+            </div>
             <br>
             <strong>Looking for software engineering jobs actively!</strong>
 
@@ -68,8 +69,8 @@
                     </header>
                     <div>
                         <picture>
-                            <source srcset="resource/photo2.png" media="(min-width: 1000px)">
-                            <img src="resource/photo.jpg" alt="my selfie"> 
+                            <source srcset="resource/photo2.png" media="(min-width: 1024px)" id="selfie-large">
+                            <img src="resource/photo.jpg" alt="my selfie" id="selfie-small"> 
                         </picture>
                         <h3>Education</h3>
                         <p>University of California, San Diego <br>

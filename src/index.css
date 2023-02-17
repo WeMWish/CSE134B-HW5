@@ -5,18 +5,19 @@
 }
 
 @font-face {
-    font-family: 'Amelaryas';
-    src: url('../resource/AmelaryasPersonalUse-6Ypw1.ttf') format('ttf');
+    font-family: Amelaryas;
+    src: url(../resource/Amelaryas.ttf);
 }
 
 body {
     background-color: white;
-    font-family: 'Amelaryas';
+    font-family: 'Times New Roman', Times, serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     overflow: auto;
+    flex-wrap: wrap;
 }
 
 article {
@@ -26,14 +27,18 @@ article {
 @keyframes rotate {
     from {
         transform: rotate(0deg);
+        transform-origin: 100px 100px;
     }
     to {
         transform: rotate(360deg);
+        transform-origin: 100px 100px;
     }
 }  
 
 canvas {
     animation: rotate 10s linear infinite;
+    margin: 0 auto;
+    display: block;
 }
 
 #show-smile-face-button {
@@ -43,4 +48,43 @@ canvas {
 #show-smile-face-button:hover {
     background-color: var(--decoration-color);
     transform: scale(1.3, 1);
+}
+
+#self-intro {
+    font-size: 7px;
+    font-family: Amelaryas, fantasy;
+    word-spacing: 0.4em;
+}
+
+#selfie-large, #selfie-small {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    width: 30%;
+}
+
+/* media queries */
+@media screen and (max-width: 767px) {
+    body {
+        font-size: 12px;
+    }
+}
+    
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    body {
+        font-size: 14px;
+    }
+    #self-intro {
+        font-size: 8px;
+    }
+}
+    
+@media screen and (min-width: 1024px) {
+    body {
+        font-size: 16px;
+    }
+    #self-intro {
+        font-size: 10px;
+    }
 }

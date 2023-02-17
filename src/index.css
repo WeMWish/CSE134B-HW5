@@ -56,7 +56,7 @@ canvas {
     word-spacing: 0.4em;
 }
 
-#selfie-large, #selfie-small {
+#selfie-large, #selfie-small, #bye-gif {
     display: block;
     margin: 0 auto;
     max-width: 100%;
@@ -65,26 +65,36 @@ canvas {
 }
 
 /* media queries */
+/* break point for small phones */
 @media screen and (max-width: 767px) {
     body {
-        font-size: 12px;
+        font-size: 14px;
+    }
+    #self-intro {
+        font-size: 7px;
     }
 }
     
+/* break point for tablets */
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     body {
-        font-size: 14px;
+        font-size: 16px;
+        width: 90%;
+        margin: 0 auto;
     }
     #self-intro {
         font-size: 8px;
     }
 }
     
+/* break points for desktop */
 @media screen and (min-width: 1024px) {
     body {
-        font-size: 16px;
+        font-size: 18px;
+        width: 80%;
+        margin: 0 auto;
     }
     #self-intro {
-        font-size: 10px;
+        font-size: 9px;
     }
 }

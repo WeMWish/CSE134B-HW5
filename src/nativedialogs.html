@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Native Dialogs</title>
+        <script type="text/javascript" src="src/purify.js"></script>
+    </head>
+    <body>
+        <button id="alert_button">Alert</button>
+        <button id="confirm_button">Confirm</button>
+        <button id="prompt_button">Prompt</button>
+        <button id="safer_prompt_button">Safer Prompt</button>
+        <output id="confirm_output"></output>
+        <output id="prompt_output"></output>
+
+        <script>
+            var alert_button = document.getElementById("alert_button");
+            var confirm_button = document.getElementById("confirm_button");
+            var prompt_button = document.getElementById("prompt_button");
+            var safer_prompt_button = document.getElementById("safer_prompt_button");
+
+            var confirm_output = document.getElementById("confirm_output");
+            var prompt_output = document.getElementById("prompt_output");
+
+            alert_button.addEventListener("click", () => {
+                alert("Hello, world!");
+            });
+
+            confirm_button.addEventListener("click", () => {
+                setTimeout(() => {
+                    var confirmed = window.confirm("Are you sure?");
+                    confirm_output.textContent = 'The value returned by the confirm method is : ${confirmed}';
+                }, 1000);
+            });
+
+            prompt_button.addEventListener("click", () => {
+                setTimeout(() => {
+                    var userInput = window.prompt("Please enter your name");
+                    if (userInput === null) {
+                        promptOutput.textContent = "User cancelled the prompt dialog";
+                    } else if (userInput === "") {
+                        promptOutput.textContent = "User didn't enter anything";
+                    } else {
+                        promptOutput.textContent = `Hello, ${userInput}!`;
+                    }
+                }, 1000);
+            });
+
+            safer_prompt_button.addEventListener("click", function() {
+                setTimeout(() => {
+                    const userInput = window.prompt("Please enter your name");
+                    if (userInput === null) {
+                        promptOutput.textContent = "User cancelled the prompt dialog";
+                    } else {
+                        const sanitizedUserInput = DOMPurify.sanitize(userInput);
+                        const template = `
+                            Hello, ${sanitizedUserInput}!<br>
+                            Your name has ${sanitizedUserInput.length} characters.
+                        `;
+                        promptOutput.innerHTML = template;
+                    }
+                }, 1000);
+            });
+        </script>
+    </body>
+</html>

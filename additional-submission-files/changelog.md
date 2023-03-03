@@ -1,0 +1,1 @@
+1. I add the new sites to the navigation sites for accessibility purpose

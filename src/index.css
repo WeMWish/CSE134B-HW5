@@ -19,6 +19,10 @@ body {
     overflow: auto;
     flex-wrap: wrap;
     color: #2F3C7E;
+    animation: fadeInAnimation ease 3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-duration: 2s;
 }
 
 #big-header {
@@ -135,4 +139,13 @@ canvas {
     #self-intro {
         font-size: 9px;
     }
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
 }

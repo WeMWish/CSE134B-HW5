@@ -1,125 +1,146 @@
-let blogPosts = []
+/* local storage */
+// local storage javascript array
+var local_storage_blogs = [
+    { "id": 0, "title": "Blog 1", "summary": "Blog 1 summary", "date": "2023-03-01" },
+    { "id": 1, "title": "Blog 2", "summary": "Blog 2 summary", "date": "2023-03-02" },
+];
 
-var add_blog_button = document.getElementById("add_blog_button");
-var delete_blog_button = document.getElementById("delete_blog_button");
-var update_blog_button = document.getElementById("update_blog_button");
-
-const dateOBJ = new Date();
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+/* elements */
+// the list element on the website
 var blog_list = document.getElementById("blog_list");
 
-// check if there is any data in local storage
-if (localStorage.getItem("blogPosts")) {
-    blogPosts = JSON.parse(localStorage.getItem("blogPosts"));
+var add_dialog = document.getElementById("add_dialog");
+var add_title = document.getElementById("add_title");
+var add_summary = document.getElementById("add_summary");
+var add_date = document.getElementById("add_date");
+var add_button = document.getElementById("add_button");
+var add_cancel_button = document.getElementById("add_cancel_button");
+
+var edit_dialog = document.getElementById("edit_dialog");
+var edit_title = document.getElementById("edit_title");
+var edit_summary = document.getElementById("edit_summary");
+var edit_date = document.getElementById("edit_date");
+var edit_button = document.getElementById("edit_button");
+var edit_cancel_button = document.getElementById("edit_cancel_button");
+
+var delete_dialog = document.getElementById("delete_dialog");
+var delete_button = document.getElementById("delete_button");
+var delete_cancel_button = document.getElementById("delete_cancel_button");
+
+var add_blog_button = document.getElementById("add_blog_button");
+
+/* init operations */
+// check if local storage exists
+if (localStorage.getItem("local_storage_blogs") === null) {
+    // if not, create it
+    localStorage.setItem("local_storage_blogs", JSON.stringify(local_storage_blogs));
 } else {
-    blogPosts = [
-        { title: "First post", content: "This is my first blog post.", date: "1 March 2023"},
-        { title: "Second post", content: "This is my second blog post.", date: "1 March 2023" }
-    ];
-
-    localStorage.setItem("blogPosts", JSON.stringify(blogPosts));
+    // if it does, load it
+    local_storage_blogs = JSON.parse(localStorage.getItem("local_storage_blogs"));
 }
 
-// pre-populate the list
-for (let i = 0; i < blogPosts.length; i++) {
-    let post = blogPosts[i];
-
-    const listItem = document.createElement("li");
-
-    const heading = document.createElement("h3");
-    heading.textContent = post.title;
-    const content = document.createElement("p");
-    content.textContent = post.content;
-    const date = document.createElement("span");
-    date.textContent = post.date;
-
-    listItem.appendChild(heading);
-    listItem.appendChild(content);
-    listItem.appendChild(date);
-
-    blog_list.appendChild(listItem);
+// prepopulate the list with local storage
+for (var i = 0; i < local_storage_blogs.length; i++) {
+    var blog = local_storage_blogs[i];
+    add_blog(blog);
 }
 
-// add event listeners
-add_blog_button.addEventListener("click", () => {
-    setTimeout(() => {
-        var title = document.getElementById("blog_title").value;
-        var content = document.getElementById("blog_content").value;
-        var date = dateOBJ.getDate() + " " + months[dateOBJ.getMonth()] + " " + dateOBJ.getFullYear();
+/* functions */
+// add blog function
+function add_blog(blog) {
+    // add to the list
+    var list_item = document.createElement("li");
+    var blog_title = document.createElement("h2");
+    var blog_summary = document.createElement("p");
+    var blog_date = document.createElement("p");
+    var delete_blog_button = document.createElement("button");
+    var edit_blog_button = document.createElement("button");
 
-        var blogPost = { title: title, content: content, date: date };
+    blog_title.innerHTML = blog.title;
+    blog_summary.innerHTML = blog.summary;
+    blog_date.innerHTML = blog.date;
+    delete_blog_button.innerHTML = "Delete";
+    edit_blog_button.innerHTML = "Edit";
+    delete_blog_button.addEventListener("click", function() {
+        delete_dialog.showModal();
+        handle_delete_blog(blog.id);
+    });
+    edit_blog_button.addEventListener("click", function() {
+        edit_dialog.showModal();
+        handle_edit_blog(blog.id);
+    });
 
-        blogPosts.push(blogPost);
+    list_item.appendChild(blog_title);
+    list_item.appendChild(blog_summary);
+    list_item.appendChild(blog_date);
+    list_item.appendChild(delete_blog_button);
+    list_item.appendChild(edit_blog_button);
 
-        localStorage.setItem("blogPosts", JSON.stringify(blogPosts));
+    blog_list.appendChild(list_item);
+}
 
-        // adding new element
-        const listItem = document.createElement("li");
-
-        const headingElem = document.createElement("h3");
-        headingElem.textContent = title;
-        const contentElem = document.createElement("p");
-        contentElem.textContent = content;
-        const dateElem = document.createElement("span");
-        dateElem.textContent = date;
-
-        listItem.appendChild(headingElem);
-        listItem.appendChild(contentElem);
-        listItem.appendChild(dateElem);
-
-        blog_list.appendChild(listItem);
-    }, 10);
+/* event listeners */
+// add-dialog and add-button
+add_blog_button.addEventListener("click", function() {
+    add_dialog.showModal();
 });
 
-// delete event listeners
-delete_blog_button.addEventListener("click", () => {
-    setTimeout(() => {
-        var id = document.getElementById("blog_id").value;
-        for (let i = 0; i < blogPosts.length; i++) {
-            if (i == id - 1) {
-                blogPosts.splice(i, 1);
-                break;
-            }
-        }
-        
-        localStorage.setItem("blogPosts", JSON.stringify(blogPosts));
-
-        // remove element
-        const listItems = document.querySelectorAll("li");
-        for (let i = 0; i < listItems.length; i++) {
-            if (i == id - 1) {
-                listItems[i].remove();
-            }
-        }
-    }, 10);
+add_button.addEventListener("click", function() {
+    let id = local_storage_blogs.length == 0 ? 0 : local_storage_blogs[local_storage_blogs.length - 1].id + 1;
+    var blog = {
+        "id": id,
+        "title": add_title.value,
+        "summary": add_summary.value,
+        "date": add_date.value,
+    };
+    local_storage_blogs.push(blog);
+    localStorage.setItem("local_storage_blogs", JSON.stringify(local_storage_blogs));
+    add_blog(blog);
+    add_dialog.close();
 });
 
-// update event listeners
-update_blog_button.addEventListener("click", () => {
-    setTimeout(() => {
-        var id = document.getElementById("blog_id_2").value;
-        var title = document.getElementById("blog_title_2").value;
-        var content = document.getElementById("blog_content_2").value;
-        var date = dateOBJ.getDate() + " " + months[dateOBJ.getMonth()] + " " + dateOBJ.getFullYear();
-
-        for (let i = 0; i < blogPosts.length; i++) {
-            if (i == id - 1) {
-                blogPosts[i].title = title;
-                blogPosts[i].content = content;
-                blogPosts[i].date = date;
-            }
-        }
-
-        localStorage.setItem("blogPosts", JSON.stringify(blogPosts));
-
-        // update element
-        const listItems = document.querySelectorAll("li");
-        for (let i = 0; i < listItems.length; i++) {
-            if (i == id - 1) {
-                listItems[i].children[0].textContent = title;
-                listItems[i].children[1].textContent = content;
-                listItems[i].children[2].textContent = date;
-            }
-        }
-    }, 10);
+add_cancel_button.addEventListener("click", function() {
+    add_dialog.close();
 });
+
+function handle_delete_blog(id) {
+    delete_button.addEventListener("click", function() {
+        for (var i = 0; i < local_storage_blogs.length; i++) {
+            if (local_storage_blogs[i].id == id) {
+                local_storage_blogs.splice(i, 1);
+                localStorage.setItem("local_storage_blogs", JSON.stringify(local_storage_blogs));
+                location.reload();
+            }
+        }
+    });
+
+    delete_cancel_button.addEventListener("click", function() {
+        delete_dialog.close();
+    });
+}
+
+function handle_edit_blog(id) {
+    for (var i = 0; i < local_storage_blogs.length; i++) {
+        if (local_storage_blogs[i].id == id) {
+            edit_title.value = local_storage_blogs[i].title;
+            edit_summary.value = local_storage_blogs[i].summary;
+            edit_date.value = local_storage_blogs[i].date;
+        }
+    }
+
+    edit_button.addEventListener("click", function() {
+        for (var i = 0; i < local_storage_blogs.length; i++) {
+            if (local_storage_blogs[i].id == id) {
+                local_storage_blogs[i].title = edit_title.value;
+                local_storage_blogs[i].summary = edit_summary.value;
+                local_storage_blogs[i].date = edit_date.value;
+                localStorage.setItem("local_storage_blogs", JSON.stringify(local_storage_blogs));
+                location.reload();
+            }
+        }
+    });
+
+    edit_cancel_button.addEventListener("click", function() {
+        edit_dialog.close();
+    });
+}

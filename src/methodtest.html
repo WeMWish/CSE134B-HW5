@@ -44,19 +44,19 @@
             var putBtn = document.getElementById("putBtn");
             var deleteBtn = document.getElementById("deleteBtn");
 
-            var id = document.getElementById("id").value;
-            var article_name = document.getElementById("article_name").value;
-            var article_body = document.getElementById("article_body").value;
-            var date = document.getElementById("date").value;
+            var id = document.getElementById("id");
+            var article_name = document.getElementById("article_name");
+            var article_body = document.getElementById("article_body");
+            var date = document.getElementById("date");
 
             var output = document.getElementById("response");
           
             postBtn.addEventListener("click", function() {
                 var data = {
-                    id: id,
-                    article_name: article_name,
-                    article_body: article_body,
-                    date: date
+                    id: id.value,
+                    article_name: article_name.value,
+                    article_body: article_body.value,
+                    date: date.value
                 };
           
                 var xhr = new XMLHttpRequest();
@@ -87,10 +87,10 @@
 
             putBtn.addEventListener("click", function() {
                 var data = {
-                    id: id,
-                    article_name: article_name,
-                    article_body: article_body,
-                    date: date
+                    id: id.value,
+                    article_name: article_name.value,
+                    article_body: article_body.value,
+                    date: date.value
                 };
           
                 var xhr = new XMLHttpRequest();
@@ -108,7 +108,7 @@
 
             deleteBtn.addEventListener("click", function() {
                 var xhr = new XMLHttpRequest();
-                xhr.open("DELETE", "https://httpbin.org/delete?id=" + id);
+                xhr.open("DELETE", "https://httpbin.org/delete?id=" + id.value);
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {

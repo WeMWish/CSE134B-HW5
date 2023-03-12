@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>end point caller</title>
+        <meta charset="utf-8">
+        <link rel="icon" type="image/png" href="../resource/cat-favicon.png">
+    </head>
+    <body>
+        <form>
+            <label for="id">ID:</label>
+            <input type="number" id="id" name="id"><br><br>
+            
+            <label for="article_name">Article Name:</label>
+            <input type="text" id="article_name" name="article_name"><br><br>
+            
+            <label for="article_body">Article Body:</label>
+            <textarea id="article_body" name="article_body"></textarea><br><br>
+            
+            <input type="text" id="date" name="date" hidden>
+
+            <button type="button" id="postBtn">POST</button>
+            <button type="button" id="getBtn">GET</button>
+            <button type="button" id="putBtn">PUT</button>
+            <button type="button" id="deleteBtn">DELETE</button>
+        </form>
+
+        <hr>
+        <output id="response"></output>
+
+        <script>
+            var currentDate = new Date();
+            document.getElementById("date").value = currentDate;
+        </script>
+        <script>
+            var postBtn = document.getElementById("postBtn");
+            var getBtn = document.getElementById("getBtn");
+            var putBtn = document.getElementById("putBtn");
+            var deleteBtn = document.getElementById("deleteBtn");
+
+            var id = document.getElementById("id").value;
+            var article_name = document.getElementById("article_name").value;
+            var article_body = document.getElementById("article_body").value;
+            var date = document.getElementById("date").value;
+
+            var output = document.getElementById("response");
+          
+            postBtn.addEventListener("click", function() {
+                var data = {
+                    id: id,
+                    article_name: article_name,
+                    article_body: article_body,
+                    date: date
+                };
+          
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "https://httpbin.org/post");
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        var formattedResponse = JSON.stringify(response, null, 2);
+                        output.innerHTML = "<pre>" + formattedResponse + "</pre>";
+                    }
+                };
+                xhr.send(JSON.stringify(data));
+            });
+          
+            getBtn.addEventListener("click", function() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "https://httpbin.org/get");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        var formattedResponse = JSON.stringify(response, null, 2);
+                        output.innerHTML = "<pre>" + formattedResponse + "</pre>";
+                    }
+                };
+                xhr.send();
+            });
+
+            putBtn.addEventListener("click", function() {
+                var data = {
+                    id: id,
+                    article_name: article_name,
+                    article_body: article_body,
+                    date: date
+                };
+          
+                var xhr = new XMLHttpRequest();
+                xhr.open("PUT", "https://httpbin.org/put");
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        var formattedResponse = JSON.stringify(response, null, 2);
+                        output.innerHTML = "<pre>" + formattedResponse + "</pre>";
+                    }
+                };
+                xhr.send(JSON.stringify(data));
+            });
+
+            deleteBtn.addEventListener("click", function() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("DELETE", "https://httpbin.org/delete?id=" + id);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        var formattedResponse = JSON.stringify(response, null, 2);
+                        output.innerHTML = "<pre>" + formattedResponse + "</pre>";
+                    }
+                };
+                xhr.send();
+            });
+        </script>
+    </body>
+</html>

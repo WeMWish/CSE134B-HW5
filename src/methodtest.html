@@ -18,10 +18,25 @@
             
             <input type="text" id="date" name="date" hidden>
 
-            <button type="button" id="postBtn">POST</button>
-            <button type="button" id="getBtn">GET</button>
-            <button type="button" id="putBtn">PUT</button>
-            <button type="button" id="deleteBtn">DELETE</button>
+            <p>Please select which RESTFul API you would like to access, XMLHttpRequest or fetch-api</p>
+            <input type="radio" id="xhr" name="api" value="xhr">
+            <label for="xhr">XMLHttpRequest</label><br>
+            <input type="radio" id="fetch" name="api" value="fetch">
+            <label for="fetch">fetch-api</label><br><br>
+
+            <div id="XMLHttpRequest_buttons" hidden>
+                <button type="button" id="postBtn">POST</button>
+                <button type="button" id="getBtn">GET</button>
+                <button type="button" id="putBtn">PUT</button>
+                <button type="button" id="deleteBtn">DELETE</button>
+            </div>
+
+            <div id="fetch_buttons" hidden>
+                <button type="button" id="postBtn_fetch">POST</button>
+                <button type="button" id="getBtn_fetch">GET</button>
+                <button type="button" id="putBtn_fetch">PUT</button>
+                <button type="button" id="deleteBtn_fetch">DELETE</button>
+            </div>
         </form>
 
         <hr>
@@ -34,10 +49,26 @@
             <a href="../src/navigation.html">Navigation</a>
         </nav>
 
+        <!-- this is the script for the page elements except for the buttons -->
         <script>
             var currentDate = new Date();
             document.getElementById("date").value = currentDate;
+
+            // set up the radios
+            var xhrRadio = document.getElementById("xhr");
+            var fetchRadio = document.getElementById("fetch");
+
+            xhrRadio.addEventListener("click", function() {
+                document.getElementById("XMLHttpRequest_buttons").hidden = false;
+                document.getElementById("fetch_buttons").hidden = true;
+            });
+            fetchRadio.addEventListener("click", function() {
+                document.getElementById("XMLHttpRequest_buttons").hidden = true;
+                document.getElementById("fetch_buttons").hidden = false;
+            });
         </script>
+
+        <!-- this is the script for XMLHttpRequest -->
         <script>
             var postBtn = document.getElementById("postBtn");
             var getBtn = document.getElementById("getBtn");
@@ -118,6 +149,93 @@
                     }
                 };
                 xhr.send();
+            });
+        </script>
+
+        <!-- this is the script for the fetch-api buttons -->
+        <script>
+            var postBtn_fetch = document.getElementById("postBtn_fetch");
+            var getBtn_fetch = document.getElementById("getBtn_fetch");
+            var putBtn_fetch = document.getElementById("putBtn_fetch");
+            var deleteBtn_fetch = document.getElementById("deleteBtn_fetch");
+
+            var id = document.getElementById("id");
+            var article_name = document.getElementById("article_name");
+            var article_body = document.getElementById("article_body");
+            var date = document.getElementById("date");
+
+            var output = document.getElementById("response");
+          
+            postBtn_fetch.addEventListener("click", function() {
+                var data = {
+                    id: id.value,
+                    article_name: article_name.value,
+                    article_body: article_body.value,
+                    date: date.value
+                };
+          
+                fetch("https://httpbin.org/post", {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(response) {
+                    var formattedResponse = JSON.stringify(response, null, 2);
+                    output.innerHTML = "<pre>" + formattedResponse + "</pre>";
+                });
+            });
+          
+            getBtn_fetch.addEventListener("click", function() {
+                fetch("https://httpbin.org/get")
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(response) {
+                    var formattedResponse = JSON.stringify(response, null, 2);
+                    output.innerHTML = "<pre>" + formattedResponse + "</pre>";
+                });
+            });
+
+            putBtn_fetch.addEventListener("click", function() {
+                var data = {
+                    id: id.value,
+                    article_name: article_name.value,
+                    article_body: article_body.value,
+                    date: date.value
+                };
+          
+                fetch("https://httpbin.org/put", {
+                    method: "PUT",
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(response) {
+                    var formattedResponse = JSON.stringify(response, null, 2);
+                    output.innerHTML = "<pre>" + formattedResponse + "</pre>";
+                });
+            });
+
+            deleteBtn_fetch.addEventListener("click", function() {
+                fetch("https://httpbin.org/delete?id=" + id.value, {
+                    method: "DELETE"
+                })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(response) {
+                    var formattedResponse = JSON.stringify(response, null, 2);
+                    output.innerHTML = "<pre>" + formattedResponse + "</pre>";
+                });
             });
         </script>
     </body>
